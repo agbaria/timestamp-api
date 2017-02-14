@@ -13,7 +13,7 @@ router.get('/:data', function(req, res) {
 
 function isNumeric(n) {
     return !isNaN(parseFloat(n)) && isFinite(n);
-};
+}
 
 function unixToNatural(unix) {
     var date = new Date(unix*1000);
@@ -22,11 +22,13 @@ function unixToNatural(unix) {
                         date.getFullYear();
     return {'unix': unix, 
             'natural': naturalDate};
-};
+}
 
 function naturalToUnix(natural) {
-    
-};
+    var msc = Date.parse(natural);
+    if (isNaN(msc)) return {'unix': null, 'natural': null};
+    else return {'unix': msc / 1000, 'natural': natural};
+}
 
 function getMonthName(m) {
     switch (m) {
@@ -42,7 +44,7 @@ function getMonthName(m) {
         case 9: return 'October';
         case 10: return 'November';
         default: return 'December';
-    };
-};
+    }
+}
 
 module.exports = router;
